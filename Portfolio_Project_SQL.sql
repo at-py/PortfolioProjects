@@ -1,3 +1,7 @@
+-- Website : https://ourworldindata.org/covid-deaths
+-- In this Project Covid Dataset is downloaded and used to explore the intricacies of how Covid affected the World
+
+-- Covid 
 Select *
 From PortfolioProject..CovidDeaths
 Where continent is not null 
@@ -18,7 +22,7 @@ Where location like '%states%'
 and continent is not null 
 order by 1,2
 
-
+mmM
 -- Total Cases vs Population
 Select Location, date, Population, total_cases,  (total_cases/population)*100 as PercentPopulationInfected
 From PortfolioProject..CovidDeaths
@@ -69,6 +73,8 @@ where dea.continent is not null
 order by 2,3
 
 
+
+	
 -- CTE 
 With PopvsVac (Continent, Location, Date, Population, New_Vaccinations, RollingPeopleVaccinated)
 as
@@ -85,6 +91,7 @@ Select *, (RollingPeopleVaccinated/Population)*100
 From PopvsVac
 
 
+	
 
 -- Temp Table 
 DROP Table if exists #PercentPopulationVaccinated
@@ -117,7 +124,6 @@ From #PercentPopulationVaccinated
 Create View PercentPopulationVaccinated as
 Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
 , SUM(CONVERT(int,vac.new_vaccinations)) OVER (Partition by dea.Location Order by dea.location, dea.Date) as RollingPeopleVaccinated
---, (RollingPeopleVaccinated/population)*100
 From PortfolioProject..CovidDeaths dea
 Join PortfolioProject..CovidVaccinations vac
 	On dea.location = vac.location
