@@ -1,7 +1,6 @@
 -- Website : https://ourworldindata.org/covid-deaths
--- In this Project Covid Dataset is downloaded and used to explore the intricacies of how Covid affected the World
+-- In this Project Covid Dataset is used to explore the intricacies of how Covid affected the World
 
--- Covid 
 Select *
 From PortfolioProject..CovidDeaths
 Where continent is not null 
@@ -22,7 +21,7 @@ Where location like '%states%'
 and continent is not null 
 order by 1,2
 
-mmM
+	
 -- Total Cases vs Population
 Select Location, date, Population, total_cases,  (total_cases/population)*100 as PercentPopulationInfected
 From PortfolioProject..CovidDeaths
@@ -112,7 +111,6 @@ From PortfolioProject..CovidDeaths dea
 Join PortfolioProject..CovidVaccinations vac
 	On dea.location = vac.location
 	and dea.date = vac.date
-
 
 Select *, (RollingPeopleVaccinated/Population)*100
 From #PercentPopulationVaccinated
